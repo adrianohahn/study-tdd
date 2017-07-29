@@ -8,8 +8,14 @@ public class Dollar {
 		this.amount = amount;
 	}
 
-	public void times(int times) {
-		amount *= times;
+	public Dollar times(int times) {
+		return new Dollar(amount * times);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Dollar dollar = (Dollar) obj;
+		return amount == dollar.amount;
 	}
 
 }
