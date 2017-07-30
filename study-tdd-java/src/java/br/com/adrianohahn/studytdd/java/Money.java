@@ -1,6 +1,6 @@
 package br.com.adrianohahn.studytdd.java;
 
-public abstract class Money {
+public class Money {
 
 	protected int amount;
 	protected String currency;
@@ -14,7 +14,7 @@ public abstract class Money {
 	public boolean equals(Object obj) {
 		Money money = (Money) obj;
 		return amount == money.amount
-				&& getClass().equals(obj.getClass());
+				&& currency.equals(money.currency);
 	}
 
 	public static Money dollar(int amount) {
@@ -25,12 +25,17 @@ public abstract class Money {
 		return new Franc(amount, "CHF");
 	}
 
-	public abstract Object times(int amount);
+	public Object times(int amount) {
+		return null;
+	}
 
 	public String currency() {
 		return this.currency;
 	}
 
-	
+	@Override
+	public String toString() {
+		return amount + " " + currency;
+	}
 
 }
