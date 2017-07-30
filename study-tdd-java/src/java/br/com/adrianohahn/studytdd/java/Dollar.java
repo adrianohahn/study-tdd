@@ -1,13 +1,13 @@
 package br.com.adrianohahn.studytdd.java;
 
 public class Dollar extends Money {
-
-	public Dollar(int amount) {
-		this.amount = amount;
+	
+	public Dollar(int amount, String currency) {
+		super(amount, currency);
 	}
 
-	public Dollar times(int times) {
-		return new Dollar(amount * times);
+	public Money times(int times) {
+		return Money.dollar(amount * times);
 	}
 
 }

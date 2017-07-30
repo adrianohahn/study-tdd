@@ -2,13 +2,13 @@
 package br.com.adrianohahn.studytdd.java;
 
 public class Franc extends Money {
-
-	public Franc(int amount) {
-		this.amount = amount;
+	
+	public Franc(int amount, String currency) {
+		super(amount, currency);
 	}
 
 	public Money times(int times) {
-		return new Franc(amount * times);
+		return Money.franc(amount * times);
 	}
 	
 
