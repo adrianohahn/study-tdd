@@ -1,6 +1,5 @@
 package br.com.adrianohahn.studytdd.test;
 
-import br.com.adrianohahn.studytdd.java.Franc;
 import br.com.adrianohahn.studytdd.java.Money;
 import junit.framework.TestCase;
 
@@ -31,7 +30,4 @@ public class MultiCurrencyTest extends TestCase {
 		assertEquals("CHF", Money.franc(1).currency());
 	}
 	
-	public void testDifferentClassEquality() {
-		assertTrue(new Money(10, "CHF").equals(new Franc(10, "CHF")));
-	}
 }
