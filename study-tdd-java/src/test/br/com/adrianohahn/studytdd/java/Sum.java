@@ -19,9 +19,8 @@ public class Sum implements Expression {
 	}
 
 	@Override
-	public Expression plus(Expression fiveFrancs) {
-		// TODO Auto-generated method stub
-		return null;
+	public Expression plus(Expression addend) {
+		return new Sum(this, addend);
 	}
 	
 
