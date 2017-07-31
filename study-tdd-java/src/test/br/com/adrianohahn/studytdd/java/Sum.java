@@ -2,17 +2,26 @@ package br.com.adrianohahn.studytdd.java;
 
 public class Sum implements Expression {
 
-	public Sum(Money augend, Money addend) {
+	public Sum(Expression augend, Expression addend) {
 		this.augend = augend;
 		this.addend = addend;
 	}
 
-	public Money augend;
+	public Expression augend;
 	
-	public Money addend;
+	public Expression addend;
 
+	@Override
 	public Money reduce(Bank bank, String to) {
-		return new Money(augend.amount + addend.amount, to);
+		int amount = augend.reduce(bank, to).amount +
+				addend.reduce(bank, to).amount;
+		return new Money(amount, to);
+	}
+
+	@Override
+	public Expression plus(Expression fiveFrancs) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
