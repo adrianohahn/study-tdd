@@ -3,13 +3,11 @@ from xunit import TestCase
 class WasRun(TestCase):
     def __init__(self,name):
         TestCase.__init__(self,name)
-        self.wasRun = None
 
     def setUp(self):
         self.log = "setUp "
 
     def testMethod(self):
-        self.wasRun = True
         self.log = self.log + "testMethod "
 
 class TestCaseTest(TestCase):
