@@ -28,42 +28,42 @@ class WasRunFailedSetup(WasRun):
 class TestCaseTest(TestCase):
 
     def setUp(self):
-        pass
+        self.result = TestResult()
 
     def tearDown(self):
         pass
 
     def testTemplateMethod(self):
-        result = TestResult()
         test = WasRun("testMethod")
-        test.run(result)
+        test.run(self.result)
         assert("setUp testMethod tearDown " == test.log)
 
     def testResult(self):
-        result = TestResult()
         test = WasRun("testMethod")
-        test.run(result)
-        assert("1 run, 0 failed" == result.summary())
+        test.run(self.result)
+        assert("1 run, 0 failed" == self.result.summary())
 
     def testFailedResult(self):
-        result = TestResult()
         test = WasRun("testBrokenMethod")
-        test.run(result)
-        assert("1 run, 1 failed" == result.summary())
+        test.run(self.result)
+        assert("1 run, 1 failed" == self.result.summary())
 
     def testFailedSetUp(self):
-        result = TestResult()
         test = WasRunFailedSetup("testMethod")
-        test.run(result)
-        assert("1 run, 1 failed" ==  result.summary())
+        test.run(self.result)
+        assert("1 run, 1 failed" ==  self.result.summary())
 
     def testSuite(self):
-        result = TestResult()
         suite = TestSuite()
         suite.add(WasRun("testMethod"))
         suite.add(WasRun("testBrokenMethod"))
-        suite.run(result)
-        assert("2 run, 1 failed" == result.summary())
+        suite.run(self.result)
+        assert("2 run, 1 failed" == self.result.summary())
+
+    def testFailedTest(self):
+        test = WasRun("testBrokenMethod")
+        test.run(self.result)
+        assert("Failed:\n testBrokenMethod" == self.result.failedSummary())
 
 
 suite = TestSuite()
@@ -72,6 +72,8 @@ suite.add(TestCaseTest("testResult"))
 suite.add(TestCaseTest("testFailedResult"))
 suite.add(TestCaseTest("testFailedSetUp"))
 suite.add(TestCaseTest("testSuite"))
+suite.add(TestCaseTest("testFailedTest"))
 result = TestResult()
 suite.run(result)
 print result.summary()
+print result.failedSummary()

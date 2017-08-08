@@ -3,15 +3,22 @@ class TestResult:
     def __init__(self):
         self.runCount = 0
         self.errorCount = 0
+        self.testsFailed = 'Failed:'
 
     def testStarted(self):
         self.runCount = self.runCount + 1
 
-    def testFailed(self):
+    def testFailed(self, testName):
         self.errorCount = self.errorCount + 1
+        self.testsFailed += ("\n %s" % testName)
 
     def summary(self):
         return "%d run, %d failed" % (self.runCount, self.errorCount)
+
+    def failedSummary(self):
+        if self.testsFailed == 'Failed:':
+            self.testsFailed += ' None'
+        return self.testsFailed
 
 class TestCase:
     def __init__(self,name):
@@ -24,7 +31,7 @@ class TestCase:
             method = getattr(self,self.name)
             method()
         except AssertionError:
-            result.testFailed()
+            result.testFailed(self.name)
         finally:
             self.tearDown()
         return result
