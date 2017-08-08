@@ -10,14 +10,21 @@ class WasRun(TestCase):
     def testMethod(self):
         self.log = self.log + "testMethod "
 
+    def tearDown(self):
+        self.log = self.log + "tearDown "
+
 class TestCaseTest(TestCase):
 
     def setUp(self):
-        self.test = WasRun("testMethod")
+        pass
 
-    def testRunning(self):
-        self.test.run()
-        assert("setUp testMethod " == self.test.log)
+    def tearDown(self):
+        pass
+
+    def testTemplateMethod(self):
+        test = WasRun("testMethod")
+        test.run()
+        assert("setUp testMethod tearDown " == test.log)
 
 
-TestCaseTest("testRunning").run()
+TestCaseTest("testTemplateMethod").run()
