@@ -17,8 +17,7 @@ class TestCase:
     def __init__(self,name):
         self.name = name
 
-    def run(self):
-        result = TestResult()
+    def run(self, result):
         result.testStarted()
         try:
             self.setUp()
@@ -28,4 +27,17 @@ class TestCase:
             result.testFailed()
         finally:
             self.tearDown()
+        return result
+
+class TestSuite:
+
+    def __init__(self):
+        self.tests = []
+
+    def add(self, test):
+        self.tests.append(test)
+
+    def run(self, result):
+        for test in self.tests:
+            test.run(result)
         return result

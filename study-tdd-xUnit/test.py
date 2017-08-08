@@ -1,4 +1,4 @@
-from xunit import TestCase
+from xunit import *
 
 class WasRun(TestCase):
     def __init__(self,name):
@@ -34,27 +34,44 @@ class TestCaseTest(TestCase):
         pass
 
     def testTemplateMethod(self):
+        result = TestResult()
         test = WasRun("testMethod")
-        test.run()
+        test.run(result)
         assert("setUp testMethod tearDown " == test.log)
 
     def testResult(self):
+        result = TestResult()
         test = WasRun("testMethod")
-        result = test.run()
+        test.run(result)
         assert("1 run, 0 failed" == result.summary())
 
     def testFailedResult(self):
+        result = TestResult()
         test = WasRun("testBrokenMethod")
-        result = test.run()
+        test.run(result)
         assert("1 run, 1 failed" == result.summary())
 
     def testFailedSetUp(self):
+        result = TestResult()
         test = WasRunFailedSetup("testMethod")
-        result = test.run()
+        test.run(result)
         assert("1 run, 1 failed" ==  result.summary())
 
+    def testSuite(self):
+        result = TestResult()
+        suite = TestSuite()
+        suite.add(WasRun("testMethod"))
+        suite.add(WasRun("testBrokenMethod"))
+        suite.run(result)
+        assert("2 run, 1 failed" == result.summary())
 
-print("testTemplateMethod: " + TestCaseTest("testTemplateMethod").run().summary())
-print("testResult: " + TestCaseTest("testResult").run().summary())
-print("testFailedResult: " + TestCaseTest("testFailedResult").run().summary())
-print("testFailedSetUp: " + TestCaseTest("testFailedSetUp").run().summary())
+
+suite = TestSuite()
+suite.add(TestCaseTest("testTemplateMethod"))
+suite.add(TestCaseTest("testResult"))
+suite.add(TestCaseTest("testFailedResult"))
+suite.add(TestCaseTest("testFailedSetUp"))
+suite.add(TestCaseTest("testSuite"))
+result = TestResult()
+suite.run(result)
+print result.summary()
