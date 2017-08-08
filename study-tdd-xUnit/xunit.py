@@ -8,10 +8,10 @@ class TestResult:
         self.runCount = self.runCount + 1
 
     def testFailed(self):
-        self.runCount = self.runCount + 1
+        self.errorCount = self.errorCount + 1
 
     def summary(self):
-        return "%d run, 0 failed" % self.runCount
+        return "%d run, %d failed" % (self.runCount, self.errorCount)
 
 class TestCase:
     def __init__(self,name):
@@ -20,11 +20,12 @@ class TestCase:
     def run(self):
         result = TestResult()
         result.testStarted()
-        self.setUp()
         try:
+            self.setUp()
             method = getattr(self,self.name)
             method()
-        except:
+        except AssertionError:
             result.testFailed()
-        self.tearDown()
+        finally:
+            self.tearDown()
         return result
