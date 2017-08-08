@@ -1,25 +1,28 @@
-from xunit import *
+from xunit import TestCase
 
 class WasRun(TestCase):
     def __init__(self,name):
         TestCase.__init__(self,name)
         self.wasRun = None
-    pass
+
+    def setUp(self):
+        self.wasSetUp = True
 
     def testMethod(self):
-        self.wasRun = 1
+        self.wasRun = True
 
 class TestCaseTest(TestCase):
 
+    def setUp(self):
+        self.test = WasRun("testMethod")
+
     def testSetUp(self):
-        test = WasRun("testMethod")
-        test.run()
-        assert test.wasSetUp
+        self.test.run()
+        assert(self.test.wasSetUp)
 
     def testRunning(self):
-        test = WasRun("testMethod")
-        assert(not test.wasRun)
-        test.run()
-        assert(test.wasRun)
+        assert(not self.test.wasRun)
+        self.test.run()
+        assert(self.test.wasRun)
 
 TestCaseTest("testRunning").run()
