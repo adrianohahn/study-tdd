@@ -23,7 +23,7 @@ class WasRunFailedSetup(WasRun):
 
     def setUp(self):
         WasRun.setUp(self)
-        assert(0)        
+        assert(0)
 
 class TestCaseTest(TestCase):
 
@@ -54,11 +54,7 @@ class TestCaseTest(TestCase):
         assert("1 run, 1 failed" ==  result.summary())
 
 
-result = TestCaseTest("testTemplateMethod").run()
-print("testTemplateMethod: " + result.summary())
-result = TestCaseTest("testResult").run()
-print("testResult: " + result.summary())
-result = TestCaseTest("testFailedResult").run()
-print("testFailedResult: " + result.summary())
-result = TestCaseTest("testFailedSetUp").run()
-print("testFailedSetUp: " + result.summary())
+print("testTemplateMethod: " + TestCaseTest("testTemplateMethod").run().summary())
+print("testResult: " + TestCaseTest("testResult").run().summary())
+print("testFailedResult: " + TestCaseTest("testFailedResult").run().summary())
+print("testFailedSetUp: " + TestCaseTest("testFailedSetUp").run().summary())
